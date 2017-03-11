@@ -12,6 +12,7 @@ package assignment4;
  * Fall 2016
  */
 
+import java.util.Iterator;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -153,15 +154,15 @@ public abstract class Critter {
 			newCritter.x_coord = rand.nextInt(Params.world_width);
 			newCritter.y_coord = rand.nextInt(Params.world_height);
 			worldMap1[newCritter.y_coord][newCritter.x_coord] += 1;
-			if(worldMap2[newCritter.y_coord][newCritter.x_coord] == null){
+			if (worldMap2[newCritter.y_coord][newCritter.x_coord] == null) {
 				worldMap2[newCritter.y_coord][newCritter.x_coord] = new java.util.ArrayList<Critter>();
 			}
 			worldMap2[newCritter.y_coord][newCritter.x_coord].add(newCritter);
 
-			// change this later
+			// delete this later
 			worldMap3[newCritter.y_coord][newCritter.x_coord] = newCritter;
-			// change this later
-			
+			// delete this later
+
 			newCritter.energy = Params.start_energy;
 			population.add(newCritter);
 		} catch (ClassNotFoundException e) {
@@ -189,10 +190,12 @@ public abstract class Critter {
 			if (!validCritter) {
 				throw new InvalidCritterException(critter_class_name);
 			}
-			java.util.Iterator itr = population.iterator();
+			Iterator<Critter> itr = population.iterator();
 			while (itr.hasNext()) {
 				Critter e = (Critter) itr.next();
-				result.add(e);
+				if(c.isInstance(e)){
+					result.add(e);
+				}
 			}
 		} catch (ClassNotFoundException e) {
 			throw new InvalidCritterException(critter_class_name);
@@ -286,9 +289,16 @@ public abstract class Critter {
 	 */
 	public static void clearWorld() {
 		// Complete this method.
-		java.util.Iterator itr = population.iterator();
-		while (itr.hasNext()) {
-			itr.remove();
+		population.clear();
+		for (int i = 0; i < Params.world_height; i++) {
+			for (int j = 0; j < Params.world_width; j++) {
+				worldMap1[i][j] = 0;
+			}
+		}
+		for (int i = 0; i < Params.world_height; i++) {
+			for (int j = 0; j < Params.world_width; j++) {
+				worldMap2[i][j] = null;
+			}
 		}
 	}
 
@@ -304,23 +314,9 @@ public abstract class Critter {
 		for (int i = 0; i < Params.world_height; i++) {
 			for (int j = 0; j < Params.world_width; j++) {
 				if (worldMap1[i][j] >= 2) {
-					while(worldMap1[i][j] > 1){
-						//fight
-					}					
-					/*
-					java.util.Iterator itr2 = population.iterator();
-					while (itr2.hasNext()) {
-						Critter c1 = (Critter) itr2.next();
-						if ((c1.y_coord == i) && (c1.x_coord == j)) {
-							Critter c2 = (Critter) itr2.next();
-							while (itr2.hasNext()) {
-								if ((c2.y_coord == i) && (c2.x_coord == j)) {
-									// fight
-								}
-							}
-						}
+					while (worldMap1[i][j] > 1) {
+						// fight until there is only one Critter left
 					}
-					*/
 				}
 			}
 		}
@@ -338,7 +334,7 @@ public abstract class Critter {
 	public static void displayWorld() {
 		// Complete this method.
 		// display the world based off the information in worldMap
-		
+
 		// print first row
 		System.out.print("+");
 		for (int i = 0; i < Params.world_width; i++) {
