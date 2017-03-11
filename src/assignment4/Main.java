@@ -73,9 +73,8 @@ public class Main {
         	String c = kb.next();
 			Critter.makeCritter(c);
 			Critter.makeCritter(c);
-			Critter.displayWorld();
 			Critter.makeCritter(c);
-			
+			Critter.displayWorld();
 		} catch (InvalidCritterException e) {
 			System.out.println("error");
 		}

@@ -24,7 +24,7 @@ public abstract class Critter {
 	private static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 	private static int[][] worldMap1 = new int[Params.world_height][Params.world_width];
-	private static String[][] worldMap2 = new String[Params.world_height][Params.world_width];
+	private static List<Critter>[][] worldMap2 = new java.util.ArrayList[Params.world_height][Params.world_width];
 	private static Critter[][] worldMap3 = new Critter[Params.world_height][Params.world_width];
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
@@ -57,6 +57,8 @@ public abstract class Critter {
 	}
 
 	private int x_coord;
+
+	private List<Critter>[][] ls;
 	private int y_coord;
 
 	protected final void walk(int direction) {
@@ -112,9 +114,16 @@ public abstract class Critter {
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
-		// incomplete
-		offspring.energy = offspring.energy / 2;
+		if (energy < Params.min_reproduce_energy) {
+			return;
+		}
+		int energyCopy = energy;
+		energy = (energy + 1) / 2;
+		offspring.energy = energyCopy / 2;
+		offspring.x_coord = x_coord;
+		offspring.y_coord = y_coord;
 		offspring.walk(direction);
+		babies.add(offspring);
 	}
 
 	public abstract void doTimeStep();
@@ -144,9 +153,15 @@ public abstract class Critter {
 			newCritter.x_coord = rand.nextInt(Params.world_width);
 			newCritter.y_coord = rand.nextInt(Params.world_height);
 			worldMap1[newCritter.y_coord][newCritter.x_coord] += 1;
+			if(worldMap2[newCritter.y_coord][newCritter.x_coord] == null){
+				worldMap2[newCritter.y_coord][newCritter.x_coord] = new java.util.ArrayList<Critter>();
+			}
+			worldMap2[newCritter.y_coord][newCritter.x_coord].add(newCritter);
+
 			// change this later
 			worldMap3[newCritter.y_coord][newCritter.x_coord] = newCritter;
 			// change this later
+			
 			newCritter.energy = Params.start_energy;
 			population.add(newCritter);
 		} catch (ClassNotFoundException e) {
@@ -289,20 +304,23 @@ public abstract class Critter {
 		for (int i = 0; i < Params.world_height; i++) {
 			for (int j = 0; j < Params.world_width; j++) {
 				if (worldMap1[i][j] >= 2) {
-					// search population for Critters that occupy these
-					// coordinates
+					while(worldMap1[i][j] > 1){
+						//fight
+					}					
+					/*
 					java.util.Iterator itr2 = population.iterator();
 					while (itr2.hasNext()) {
 						Critter c1 = (Critter) itr2.next();
 						if ((c1.y_coord == i) && (c1.x_coord == j)) {
 							Critter c2 = (Critter) itr2.next();
-							while(itr2.hasNext()){
+							while (itr2.hasNext()) {
 								if ((c2.y_coord == i) && (c2.x_coord == j)) {
-									//fight
+									// fight
 								}
 							}
 						}
 					}
+					*/
 				}
 			}
 		}
@@ -320,6 +338,7 @@ public abstract class Critter {
 	public static void displayWorld() {
 		// Complete this method.
 		// display the world based off the information in worldMap
+		
 		// print first row
 		System.out.print("+");
 		for (int i = 0; i < Params.world_width; i++) {

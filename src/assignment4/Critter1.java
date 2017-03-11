@@ -1,8 +1,8 @@
+/*Critter 1 always tries to fight*/
+
 package assignment4;
 
-import assignment4.Critter.TestCritter;
-
-public class Critter1 extends TestCritter {
+public class Critter1 extends Critter {
 	@Override
 	public String toString() {
 		return "1";
@@ -17,6 +17,6 @@ public class Critter1 extends TestCritter {
 	public boolean fight(String oponent) {
 		// TODO Auto-generated method stub
 		//call reproduce here or in doTimeStep()
-		return false;
+		return true;
 	}
 }
