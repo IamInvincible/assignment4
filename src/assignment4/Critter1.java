@@ -1,4 +1,4 @@
-/*Critter 1 always tries to fight*/
+/*Critter 1 only walks in random directions and always tries to fight*/
 
 package assignment4;
 
@@ -11,6 +11,7 @@ public class Critter1 extends Critter {
 	public void doTimeStep() {
 		// TODO Auto-generated method stub
 		//call reproduce here or in fight()
+		this.walk(this.getRandomInt(8));
 	}
 
 	@Override
