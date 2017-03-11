@@ -27,6 +27,7 @@ public abstract class Critter {
 	private static int[][] worldMap1 = new int[Params.world_height][Params.world_width];
 	private static List<Critter>[][] worldMap2 = new java.util.ArrayList[Params.world_height][Params.world_width];
 	private static Critter[][] worldMap3 = new Critter[Params.world_height][Params.world_width];
+	private int moveFlag = 1;
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
 	static {
@@ -63,55 +64,61 @@ public abstract class Critter {
 	private int y_coord;
 
 	protected final void walk(int direction) {
-		switch (direction) {
-		case 0:
-			x_coord = (x_coord + 1) % (Params.world_width);
-		case 1:
-			x_coord = (x_coord + 1) % (Params.world_width);
-			y_coord = (y_coord + Params.world_height - 1) % (Params.world_height);
-		case 2:
-			y_coord = (y_coord + Params.world_height - 1) % (Params.world_height);
-		case 3:
-			x_coord = (x_coord + Params.world_width - 1) % (Params.world_width);
-			y_coord = (y_coord + Params.world_height - 1) % (Params.world_height);
-		case 4:
-			x_coord = (x_coord + Params.world_width - 1) % (Params.world_width);
-		case 5:
-			x_coord = (x_coord + Params.world_width - 1) % (Params.world_width);
-			y_coord = (y_coord + 1) % (Params.world_height);
-		case 6:
-			y_coord = (y_coord + 1) % (Params.world_height);
-		case 7:
-			x_coord = (x_coord + 1) % (Params.world_width);
-			y_coord = (y_coord + 1) % (Params.world_height);
+		if (moveFlag == 1) {
+			switch (direction) {
+			case 0:
+				x_coord = (x_coord + 1) % (Params.world_width);
+			case 1:
+				x_coord = (x_coord + 1) % (Params.world_width);
+				y_coord = (y_coord + Params.world_height - 1) % (Params.world_height);
+			case 2:
+				y_coord = (y_coord + Params.world_height - 1) % (Params.world_height);
+			case 3:
+				x_coord = (x_coord + Params.world_width - 1) % (Params.world_width);
+				y_coord = (y_coord + Params.world_height - 1) % (Params.world_height);
+			case 4:
+				x_coord = (x_coord + Params.world_width - 1) % (Params.world_width);
+			case 5:
+				x_coord = (x_coord + Params.world_width - 1) % (Params.world_width);
+				y_coord = (y_coord + 1) % (Params.world_height);
+			case 6:
+				y_coord = (y_coord + 1) % (Params.world_height);
+			case 7:
+				x_coord = (x_coord + 1) % (Params.world_width);
+				y_coord = (y_coord + 1) % (Params.world_height);
+			}
 		}
 		energy = energy - Params.walk_energy_cost;
+		moveFlag -= 1;
 	}
 
 	protected final void run(int direction) {
-		switch (direction) {
-		case 0:
-			x_coord = (x_coord + 2) % (Params.world_width);
-		case 1:
-			x_coord = (x_coord + 2) % (Params.world_width);
-			y_coord = (y_coord + Params.world_height - 2) % (Params.world_height);
-		case 2:
-			y_coord = (y_coord + Params.world_height - 2) % (Params.world_height);
-		case 3:
-			x_coord = (x_coord + Params.world_width - 2) % (Params.world_width);
-			y_coord = (y_coord + Params.world_height - 2) % (Params.world_height);
-		case 4:
-			x_coord = (x_coord + Params.world_width - 2) % (Params.world_width);
-		case 5:
-			x_coord = (x_coord + Params.world_width - 2) % (Params.world_width);
-			y_coord = (y_coord + 2) % (Params.world_height);
-		case 6:
-			y_coord = (y_coord + 2) % (Params.world_height);
-		case 7:
-			x_coord = (x_coord + 2) % (Params.world_width);
-			y_coord = (y_coord + 2) % (Params.world_height);
+		if (moveFlag == 1) {
+			switch (direction) {
+			case 0:
+				x_coord = (x_coord + 2) % (Params.world_width);
+			case 1:
+				x_coord = (x_coord + 2) % (Params.world_width);
+				y_coord = (y_coord + Params.world_height - 2) % (Params.world_height);
+			case 2:
+				y_coord = (y_coord + Params.world_height - 2) % (Params.world_height);
+			case 3:
+				x_coord = (x_coord + Params.world_width - 2) % (Params.world_width);
+				y_coord = (y_coord + Params.world_height - 2) % (Params.world_height);
+			case 4:
+				x_coord = (x_coord + Params.world_width - 2) % (Params.world_width);
+			case 5:
+				x_coord = (x_coord + Params.world_width - 2) % (Params.world_width);
+				y_coord = (y_coord + 2) % (Params.world_height);
+			case 6:
+				y_coord = (y_coord + 2) % (Params.world_height);
+			case 7:
+				x_coord = (x_coord + 2) % (Params.world_width);
+				y_coord = (y_coord + 2) % (Params.world_height);
+			}
 		}
 		energy = energy - Params.run_energy_cost;
+		moveFlag -= 1;
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
@@ -193,7 +200,7 @@ public abstract class Critter {
 			Iterator<Critter> itr = population.iterator();
 			while (itr.hasNext()) {
 				Critter e = (Critter) itr.next();
-				if(c.isInstance(e)){
+				if (c.isInstance(e)) {
 					result.add(e);
 				}
 			}
