@@ -23,7 +23,9 @@ public abstract class Critter {
 	private static String myPackage;
 	private static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
-
+	private static int[][] worldMap1 = new int[Params.world_height][Params.world_width];
+	private static String[][] worldMap2 = new String[Params.world_height][Params.world_width];
+	private static Critter[][] worldMap3 = new Critter[Params.world_height][Params.world_width];
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
 	static {
@@ -110,6 +112,8 @@ public abstract class Critter {
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
+		// incomplete
+		offspring.energy = offspring.energy / 2;
 		offspring.walk(direction);
 	}
 
@@ -139,6 +143,10 @@ public abstract class Critter {
 			Critter newCritter = (Critter) c.newInstance();
 			newCritter.x_coord = rand.nextInt(Params.world_width);
 			newCritter.y_coord = rand.nextInt(Params.world_height);
+			worldMap1[newCritter.y_coord][newCritter.x_coord] += 1;
+			//change this later
+			worldMap3[newCritter.y_coord][newCritter.x_coord] = newCritter;
+			//change this later
 			newCritter.energy = Params.start_energy;
 			population.add(newCritter);
 		} catch (ClassNotFoundException e) {
@@ -160,7 +168,20 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-
+		try {
+			Class<?> c = Class.forName(critter_class_name);
+			boolean validCritter = Critter.class.isAssignableFrom(c);
+			if (!validCritter) {
+				throw new InvalidCritterException(critter_class_name);
+			}
+			java.util.Iterator itr = population.iterator();
+			while (itr.hasNext()) {
+				Critter e = (Critter) itr.next();
+				result.add(e);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new InvalidCritterException(critter_class_name);
+		}
 		return result;
 	}
 
@@ -262,7 +283,9 @@ public abstract class Critter {
 		while (itr.hasNext()) {
 			Critter c = (Critter) itr.next();
 			c.doTimeStep();
-			// resolve fights and stuff
+
+			// resolve fights and stuff by searching worldMap1 for places where
+			// 2 or more Critters occupy the same area
 		}
 		itr = population.iterator();
 		while (itr.hasNext()) {
@@ -276,5 +299,33 @@ public abstract class Critter {
 
 	public static void displayWorld() {
 		// Complete this method.
+		// display the world based off the information in worldMap
+		// print first row
+		System.out.print("+");
+		for (int i = 0; i < Params.world_width; i++) {
+			System.out.print("-");
+		}
+		System.out.println("+");
+
+		// print map
+		for (int i = 0; i < Params.world_height; i++) {
+			System.out.print("|");
+			for (int j = 0; j < Params.world_width; j++) {
+				// change this later
+				if(worldMap1[i][j]==1){
+					System.out.print(worldMap3[i][j].toString());
+				} else {
+					System.out.print(" ");
+				}
+			}
+			System.out.println("|");
+		}
+
+		// print last row
+		System.out.print("+");
+		for (int i = 0; i < Params.world_width; i++) {
+			System.out.print("-");
+		}
+		System.out.print("+");
 	}
 }
