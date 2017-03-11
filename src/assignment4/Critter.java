@@ -144,9 +144,9 @@ public abstract class Critter {
 			newCritter.x_coord = rand.nextInt(Params.world_width);
 			newCritter.y_coord = rand.nextInt(Params.world_height);
 			worldMap1[newCritter.y_coord][newCritter.x_coord] += 1;
-			//change this later
+			// change this later
 			worldMap3[newCritter.y_coord][newCritter.x_coord] = newCritter;
-			//change this later
+			// change this later
 			newCritter.energy = Params.start_energy;
 			population.add(newCritter);
 		} catch (ClassNotFoundException e) {
@@ -283,10 +283,30 @@ public abstract class Critter {
 		while (itr.hasNext()) {
 			Critter c = (Critter) itr.next();
 			c.doTimeStep();
-
-			// resolve fights and stuff by searching worldMap1 for places where
-			// 2 or more Critters occupy the same area
 		}
+		// resolve fights and stuff by searching worldMap1 for places where
+		// 2 or more Critters occupy the same area
+		for (int i = 0; i < Params.world_height; i++) {
+			for (int j = 0; j < Params.world_width; j++) {
+				if (worldMap1[i][j] >= 2) {
+					// search population for Critters that occupy these
+					// coordinates
+					java.util.Iterator itr2 = population.iterator();
+					while (itr2.hasNext()) {
+						Critter c1 = (Critter) itr2.next();
+						if ((c1.y_coord == i) && (c1.x_coord == j)) {
+							Critter c2 = (Critter) itr2.next();
+							while(itr2.hasNext()){
+								if ((c2.y_coord == i) && (c2.x_coord == j)) {
+									//fight
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
 		itr = population.iterator();
 		while (itr.hasNext()) {
 			Critter c = (Critter) itr.next();
@@ -312,7 +332,7 @@ public abstract class Critter {
 			System.out.print("|");
 			for (int j = 0; j < Params.world_width; j++) {
 				// change this later
-				if(worldMap1[i][j]==1){
+				if (worldMap1[i][j] == 1) {
 					System.out.print(worldMap3[i][j].toString());
 				} else {
 					System.out.print(" ");
