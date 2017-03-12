@@ -66,25 +66,33 @@ public class Main {
         } else { // if no arguments to main
             kb = new Scanner(System.in); // use keyboard and console
         }
-    	
+
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-        System.out.print("critters> ");
-        String input = kb.next();
-        if(input.equals("show")){
-            int input1 = kb.nextInt();
-        	Critter.displayWorld();
+        
+        String inputString = "";
+        while(inputString != "quit"){
+        	System.out.println("critters> ");
+        	inputString = kb.nextLine();
+        	int spaceCount = 0;
+        	for(int i = 0; i < inputString.length(); i++){
+        		if(inputString.charAt(i) == ' '){
+        			spaceCount++;
+        		}
+        	}
+        	if(spaceCount == 0){
+        		
+        	}
+        	else if(spaceCount == 1){
+        		
+        	}
+        	else if(spaceCount == 2){
+        		
+        	}
+        	else{
+        		
+        	}
         }
-        try {
-        	String c = kb.next();
-			Critter.makeCritter(c);
-			Critter.makeCritter(c);
-			Critter.makeCritter(c);
-			Critter.displayWorld();
-		} catch (InvalidCritterException e) {
-			System.out.println("error");
-		}
-        // System.out.println("GLHF");
         
         /* Write your code above */
         System.out.flush();
