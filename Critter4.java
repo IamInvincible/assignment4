@@ -1,4 +1,4 @@
-/*Critter4 always tries to reproduce and always tries to flee*/
+/*Critter4 always tries to reproduce and always tries to fight*/
 package assignment4;
 
 public class Critter4 extends Critter {
@@ -10,19 +10,13 @@ public class Critter4 extends Critter {
 	@Override
 	public void doTimeStep() {
 		// TODO Auto-generated method stub
-		if(this.getEnergy() > (Params.start_energy/4)){
-			reproduce(new Critter4(), this.getRandomInt(8));
-		}
-		this.walk(this.getRandomInt(8));
+		reproduce(new Critter4(), Critter.getRandomInt(8));
 	}
 
 	@Override
 	public boolean fight(String oponent) {
 		// TODO Auto-generated method stub
-		if (this.getEnergy() >= (Params.start_energy) / 10) {
-			return true;
-		}
-		return false;
+		return true;
 	}
 
 }

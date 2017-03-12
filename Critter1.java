@@ -11,7 +11,7 @@ public class Critter1 extends Critter {
 	public void doTimeStep() {
 		// TODO Auto-generated method stub
 		//call reproduce here or in fight()
-		this.walk(this.getRandomInt(8));
+		this.walk(Critter.getRandomInt(8));
 	}
 
 	@Override
