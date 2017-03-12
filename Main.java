@@ -77,10 +77,10 @@ public class Main {
 
 		/* Do not alter the code above for your submission. */
 		/* Write your code below. */
-
-		String inputString = kb.nextLine();
+		String inputString = "";
 		while (inputString != "quit") {
 			System.out.println("critters> ");
+			inputString = kb.nextLine();
 			int spaceCount = 0;
 			for (int i = 0; i < inputString.length(); i++) {
 				if (inputString.charAt(i) == ' ') {
@@ -95,14 +95,36 @@ public class Main {
 				} else if (inputString.equals("step")) {
 					Critter.worldTimeStep();
 				} else {
-					System.out.println("error processing: " + "inputString");
+					System.out.println("error processing: " + inputString);
 				}
 			} else if (spaceCount == 1) {
 
 			} else if (spaceCount == 2) {
-
+				int firstSpace = inputString.indexOf(' ');
+				String firstWord = inputString.substring(0, firstSpace);
+				if (firstWord.equals("make")) {
+					int secondSpace = inputString.indexOf(' ', firstSpace + 1);
+					String class_name = inputString.substring(firstSpace + 1, secondSpace);
+					try {
+						String loop = inputString.substring(secondSpace + 1, inputString.length());
+						int loopInt = Integer.parseInt(loop);
+						if (loopInt < 0) {
+							System.out.println("error processing: " + inputString);
+						} else {
+							for (int i = 0; i < loopInt; i++) {
+								Critter.makeCritter(myPackage + "." + class_name);
+							}
+						}
+					} catch (InvalidCritterException e) {
+						System.out.println("error processing: " + inputString);
+					} catch (NumberFormatException e) {
+						System.out.println("error processing: " + inputString);
+					}
+				} else {
+					System.out.println("error processing: " + inputString);
+				}
 			} else {
-				System.out.println("error processing: " + "inputString");
+				System.out.println("error processing: " + inputString);
 			}
 		}
 
