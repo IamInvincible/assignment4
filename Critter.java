@@ -69,13 +69,6 @@ public abstract class Critter {
 	protected final void walk(int direction) {
 		energy = energy - Params.walk_energy_cost;
 		if (energy <= 0) {
-			Iterator<Critter> itr = population.iterator();
-			while (itr.hasNext()) {
-				Critter x = (Critter) itr.next();
-				if (x.critterId == this.critterId) {
-					itr.remove();
-				}
-			}
 			worldMap1[y_coord][x_coord] -= 1;
 			Iterator<Critter> iter = worldMap2[y_coord][x_coord].iterator();
 			while (iter.hasNext()) {
@@ -143,13 +136,6 @@ public abstract class Critter {
 	protected final void run(int direction) {
 		energy = energy - Params.run_energy_cost;
 		if (energy <= 0) {
-			Iterator<Critter> itr = population.iterator();
-			while (itr.hasNext()) {
-				Critter x = (Critter) itr.next();
-				if (x.critterId == this.critterId) {
-					itr.remove();
-				}
-			}
 			worldMap1[y_coord][x_coord] -= 1;
 			Iterator<Critter> iter = worldMap2[y_coord][x_coord].iterator();
 			while (iter.hasNext()) {
@@ -483,6 +469,13 @@ public abstract class Critter {
 			c.isFleeing = false;
 			c.doTimeStep();
 			c.isFleeing = true;
+		}
+		itr = population.iterator();
+		while (itr.hasNext()) {
+			Critter c = (Critter) itr.next();
+			if (c.energy <= 0) {
+				itr.remove();
+			}
 		}
 		// resolve encounters by searching worldMap1 for places where
 		// 2 or more Critters occupy the same area
