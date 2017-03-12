@@ -1,14 +1,14 @@
 package assignment4;
-/* CRITTERS Main.java
+/* CRITTERS Critter.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
- * Slip days used: <0>
+ * Cejay Zhu
+ * cz4723
+ * 16238
+ * Jason Fang
+ * jhf649
+ * 16238
+ * Slip days used: 1
  * Fall 2016
  */
 
@@ -93,7 +93,7 @@ public class Main {
 				}
         	}
         	else if(spaceCount == 1){
-        		int spaceIndex = inputString.indexOf(" ");
+        		int spaceIndex = inputString.indexOf(' ');
         		String input1 = inputString.substring(0, spaceIndex);
         		String input2 = inputString.substring(spaceIndex+1);
         		if(input1.equals("step")){
@@ -170,11 +170,23 @@ public class Main {
 						System.out.println("error processing: " + inputString);
 					}
 				} else {
-					System.out.println("invalid command: " + inputString);
+					if(firstWord.equals("quit") || firstWord.equals("show") || firstWord.equals("step") || firstWord.equals("seed") || firstWord.equals("stats")){
+	        			System.out.println("error processing: " +inputString);
+	        		}
+	        		else{
+	        			System.out.println("invalid command: " +inputString);
+	        		}
 				}
         	}
         	else{
-        		System.out.println("invalid command: " +inputString);
+        		int spaceIndex = inputString.indexOf(' ');
+        		String input1 = inputString.substring(0, spaceIndex);
+        		if(input1.equals("quit") || input1.equals("show") || input1.equals("step") || input1.equals("seed") || input1.equals("make") || input1.equals("stats")){
+        			System.out.println("error processing: " +inputString);
+        		}
+        		else{
+        			System.out.println("invalid command: " +inputString);
+        		}
         	}
         }
         
