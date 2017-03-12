@@ -1,3 +1,15 @@
+/* CRITTERS Critter2.java
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Jason Fang
+ * jhf649
+ * 16238
+ * Cejay Zhu
+ * cz4723
+ * 16238
+ * Slip days used: 1
+ * Fall 2016
+ */
 /*Critter 2 never moves and always tries to fight*/
 package assignment4;
 

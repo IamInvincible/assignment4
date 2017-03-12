@@ -1,3 +1,15 @@
+/* CRITTERS Critter3.java
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Jason Fang
+ * jhf649
+ * 16238
+ * Cejay Zhu
+ * cz4723
+ * 16238
+ * Slip days used: 1
+ * Fall 2016
+ */
 /*Critter 3 always runs in random directions and has a 50% of attempting to fight.*/
 package assignment4;
 
