@@ -43,7 +43,7 @@ public abstract class Critter {
 	public static void setSeed(long new_seed) {
 		rand = new java.util.Random(new_seed);
 	}
-	
+
 	private static int idGenerator = 0;
 
 	/*
@@ -70,17 +70,17 @@ public abstract class Critter {
 		energy = energy - Params.walk_energy_cost;
 		if (energy <= 0) {
 			Iterator<Critter> itr = population.iterator();
-			while(itr.hasNext()){
+			while (itr.hasNext()) {
 				Critter x = (Critter) itr.next();
-				if(x.critterId == this.critterId){
+				if (x.critterId == this.critterId) {
 					itr.remove();
 				}
 			}
 			worldMap1[y_coord][x_coord] -= 1;
 			Iterator<Critter> iter = worldMap2[y_coord][x_coord].iterator();
-			while(iter.hasNext()){
+			while (iter.hasNext()) {
 				Critter r = iter.next();
-				if(r.critterId == this.critterId){
+				if (r.critterId == this.critterId) {
 					iter.remove();
 				}
 			}
@@ -112,15 +112,15 @@ public abstract class Critter {
 				y_coord = (y_coord + 1) % (Params.world_height);
 			}
 		}
-		if(isFleeing && (worldMap1[y_coord][x_coord] > 0)){
+		if (isFleeing && (worldMap1[y_coord][x_coord] > 0)) {
 			x_coord = orig_x_coord;
 			y_coord = orig_y_coord;
 		}
 		worldMap1[orig_y_coord][orig_x_coord] -= 1;
 		Iterator<Critter> iter = worldMap2[orig_y_coord][orig_x_coord].iterator();
-		while(iter.hasNext()){
+		while (iter.hasNext()) {
 			Critter c = iter.next();
-			if(c.critterId == this.critterId){
+			if (c.critterId == this.critterId) {
 				iter.remove();
 			}
 		}
@@ -133,17 +133,17 @@ public abstract class Critter {
 		energy = energy - Params.run_energy_cost;
 		if (energy <= 0) {
 			Iterator<Critter> itr = population.iterator();
-			while(itr.hasNext()){
+			while (itr.hasNext()) {
 				Critter x = (Critter) itr.next();
-				if(x.critterId == this.critterId){
+				if (x.critterId == this.critterId) {
 					itr.remove();
 				}
 			}
 			worldMap1[y_coord][x_coord] -= 1;
 			Iterator<Critter> iter = worldMap2[y_coord][x_coord].iterator();
-			while(iter.hasNext()){
+			while (iter.hasNext()) {
 				Critter r = iter.next();
-				if(r.critterId == this.critterId){
+				if (r.critterId == this.critterId) {
 					iter.remove();
 				}
 			}
@@ -175,15 +175,15 @@ public abstract class Critter {
 				y_coord = (y_coord + 2) % (Params.world_height);
 			}
 		}
-		if(isFleeing && (worldMap1[y_coord][x_coord] > 0)){
+		if (isFleeing && (worldMap1[y_coord][x_coord] > 0)) {
 			x_coord = orig_x_coord;
 			y_coord = orig_y_coord;
 		}
 		worldMap1[orig_y_coord][orig_x_coord] -= 1;
 		Iterator<Critter> iter = worldMap2[orig_y_coord][orig_x_coord].iterator();
-		while(iter.hasNext()){
+		while (iter.hasNext()) {
 			Critter c = iter.next();
-			if(c.critterId == this.critterId){
+			if (c.critterId == this.critterId) {
 				iter.remove();
 			}
 		}
@@ -329,24 +329,24 @@ public abstract class Critter {
 		protected void setX_coord(int new_x_coord) {
 			worldMap1[super.y_coord][super.x_coord] -= 1;
 			Iterator<Critter> iter = worldMap2[super.y_coord][super.x_coord].iterator();
-			while(iter.hasNext()){
+			while (iter.hasNext()) {
 				Critter c = iter.next();
-				if(c.critterId == super.critterId){
+				if (c.critterId == super.critterId) {
 					iter.remove();
 				}
 			}
 			super.x_coord = new_x_coord;
 			worldMap1[super.y_coord][super.x_coord] += 1;
 			worldMap2[super.y_coord][super.x_coord].add(this);
-			
+
 		}
 
 		protected void setY_coord(int new_y_coord) {
 			worldMap1[super.y_coord][super.x_coord] -= 1;
 			Iterator<Critter> iter = worldMap2[super.y_coord][super.x_coord].iterator();
-			while(iter.hasNext()){
+			while (iter.hasNext()) {
 				Critter c = iter.next();
-				if(c.critterId == super.critterId){
+				if (c.critterId == super.critterId) {
 					iter.remove();
 				}
 			}
@@ -424,69 +424,66 @@ public abstract class Critter {
 					boolean bFights = b.fight(a.toString());
 					int aRoll = 0;
 					int bRoll = 0;
-					if(a.energy > 0 && b.energy > 0 && a.x_coord == b.x_coord && a.y_coord == b.y_coord){
-						if(aFights){
-							aRoll = rand.nextInt(a.energy+1);
-						}
-						else{
+					if ((a.energy > 0) && (b.energy > 0) && (a.x_coord == b.x_coord) && (a.y_coord == b.y_coord)) {
+						if (aFights) {
+							aRoll = rand.nextInt(a.energy + 1);
+						} else {
 							aRoll = 0;
 						}
-						if(bFights){
-							bRoll = rand.nextInt(b.energy+1);
-						}
-						else{
+						if (bFights) {
+							bRoll = rand.nextInt(b.energy + 1);
+						} else {
 							bRoll = 0;
 						}
 					}
-					if(aRoll > bRoll || aRoll == bRoll){
+					if ((aRoll > bRoll) || (aRoll == bRoll)) {
 						Iterator<Critter> it = worldMap2[a.y_coord][a.x_coord].iterator();
-						while(it.hasNext()){
+						while (it.hasNext()) {
 							Critter z = it.next();
-							if(z.critterId == a.critterId){
-								z.energy = z.energy + (b.energy/2);
+							if (z.critterId == a.critterId) {
+								z.energy = z.energy + (b.energy / 2);
 							}
 						}
 						itr = population.iterator();
-						while(itr.hasNext()){
+						while (itr.hasNext()) {
 							Critter c = (Critter) itr.next();
-							if(c.critterId == b.critterId){
+							if (c.critterId == b.critterId) {
 								itr.remove();
 							}
 						}
 						worldMap1[b.y_coord][b.x_coord] -= 1;
 						Iterator<Critter> iter = worldMap2[b.y_coord][b.x_coord].iterator();
-						while(iter.hasNext()){
+						while (iter.hasNext()) {
 							Critter r = iter.next();
-							if(r.critterId == b.critterId){
+							if (r.critterId == b.critterId) {
 								iter.remove();
 							}
 						}
-					}
-					else{
+					} else {
 						Iterator<Critter> it = worldMap2[b.y_coord][b.x_coord].iterator();
-						while(it.hasNext()){
+						while (it.hasNext()) {
 							Critter z = it.next();
-							if(z.critterId == b.critterId){
-								z.energy = z.energy + (a.energy/2);
+							if (z.critterId == b.critterId) {
+								z.energy = z.energy + (a.energy / 2);
 							}
 						}
 						itr = population.iterator();
-						while(itr.hasNext()){
+						while (itr.hasNext()) {
 							Critter c = (Critter) itr.next();
-							if(c.critterId == a.critterId){
+							if (c.critterId == a.critterId) {
 								itr.remove();
 							}
 						}
 						worldMap1[a.y_coord][a.x_coord] -= 1;
 						Iterator<Critter> iter = worldMap2[a.y_coord][a.x_coord].iterator();
-						while(iter.hasNext()){
+						while (iter.hasNext()) {
 							Critter r = iter.next();
-							if(r.critterId == a.critterId){
+							if (r.critterId == a.critterId) {
 								iter.remove();
 							}
 						}
 					}
-				}	
+				}
 			}
 		}
 
@@ -498,13 +495,23 @@ public abstract class Critter {
 				itr.remove();
 				worldMap1[c.y_coord][c.x_coord] -= 1;
 				Iterator<Critter> iter = worldMap2[c.y_coord][c.x_coord].iterator();
-				while(iter.hasNext()){
+				while (iter.hasNext()) {
 					Critter r = iter.next();
-					if(r.critterId == c.critterId){
+					if (r.critterId == c.critterId) {
 						iter.remove();
 					}
 				}
 			}
+		}
+
+		itr = babies.iterator();
+		while (itr.hasNext()) {
+			Critter c = (Critter) itr.next();
+			c.critterId = idGenerator;
+			idGenerator++;
+			population.add(c);
+			worldMap1[c.y_coord][c.x_coord] += 1;
+			worldMap2[c.y_coord][c.x_coord].add(c);
 		}
 	}
 
@@ -525,7 +532,7 @@ public abstract class Critter {
 			for (int j = 0; j < Params.world_width; j++) {
 				// change this later
 				if (worldMap1[i][j] == 1) {
-					System.out.print(worldMap3[i][j].toString());
+					System.out.print(worldMap2[i][j].get(0).toString());
 				} else {
 					System.out.print(" ");
 				}
