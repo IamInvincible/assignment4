@@ -125,6 +125,9 @@ public abstract class Critter {
 			}
 		}
 		worldMap1[y_coord][x_coord] += 1;
+		if (worldMap2[y_coord][x_coord] == null) {
+			worldMap2[y_coord][x_coord] = new java.util.ArrayList<Critter>();
+		}
 		worldMap2[y_coord][x_coord].add(this);
 		hasMoved = true;
 	}
@@ -188,6 +191,9 @@ public abstract class Critter {
 			}
 		}
 		worldMap1[y_coord][x_coord] += 1;
+		if (worldMap2[y_coord][x_coord] == null) {
+			worldMap2[y_coord][x_coord] = new java.util.ArrayList<Critter>();
+		}
 		worldMap2[y_coord][x_coord].add(this);
 		hasMoved = true;
 	}
@@ -377,6 +383,9 @@ public abstract class Critter {
 			}
 			super.x_coord = new_x_coord;
 			worldMap1[super.y_coord][super.x_coord] += 1;
+			if (worldMap2[super.y_coord][super.x_coord] == null) {
+				worldMap2[super.y_coord][super.x_coord] = new java.util.ArrayList<Critter>();
+			}
 			worldMap2[super.y_coord][super.x_coord].add(this);
 			
 		}
@@ -392,6 +401,9 @@ public abstract class Critter {
 			}
 			super.y_coord = new_y_coord;
 			worldMap1[super.y_coord][super.x_coord] += 1;
+			if (worldMap2[super.y_coord][super.x_coord] == null) {
+				worldMap2[super.y_coord][super.x_coord] = new java.util.ArrayList<Critter>();
+			}
 			worldMap2[super.y_coord][super.x_coord].add(this);
 		}
 
@@ -553,6 +565,9 @@ public abstract class Critter {
 			babyIter.remove();
 			population.add(b);
 			worldMap1[b.y_coord][b.x_coord] += 1;
+			if (worldMap2[b.y_coord][b.x_coord] == null) {
+				worldMap2[b.y_coord][b.x_coord] = new java.util.ArrayList<Critter>();
+			}
 			worldMap2[b.y_coord][b.x_coord].add(b);
 		}
 		
@@ -583,7 +598,7 @@ public abstract class Critter {
 			for (int j = 0; j < Params.world_width; j++) {
 				// change this later
 				if (worldMap1[i][j] == 1) {
-					System.out.print(worldMap3[i][j].toString());
+					System.out.print(worldMap2[i][j].get(0).toString());
 				} else {
 					System.out.print(" ");
 				}
@@ -596,6 +611,6 @@ public abstract class Critter {
 		for (int i = 0; i < Params.world_width; i++) {
 			System.out.print("-");
 		}
-		System.out.print("+");
+		System.out.println("+");
 	}
 }
