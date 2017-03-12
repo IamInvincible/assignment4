@@ -1,4 +1,4 @@
-/*Critter4 reproduces only if it has more than 25% of Params.start_energy (rounded down) and only walks in random directions and always fights*/
+/*Critter4 always tries to reproduce and always tries to flee*/
 package assignment4;
 
 public class Critter4 extends Critter {
