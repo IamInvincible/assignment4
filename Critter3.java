@@ -10,7 +10,7 @@
  * Slip days used: 1
  * Fall 2016
  */
-/*Critter 3 always runs in random directions and has a 50% of attempting to fight.*/
+/**Critter 3 always runs in random directions and has a 50% of attempting to fight.*/
 package assignment4;
 
 public class Critter3 extends Critter {

@@ -10,7 +10,8 @@
  * Slip days used: 1
  * Fall 2016
  */
-/*Critter 1 only walks in random directions and always tries to fight*/
+
+/**Critter 1 only walks in random directions and always tries to fight*/
 
 package assignment4;
 

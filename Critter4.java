@@ -10,7 +10,8 @@
  * Slip days used: 1
  * Fall 2016
  */
-/*Critter4 always tries to reproduce and always tries to fight*/
+
+/**Critter4 always tries to reproduce and always tries to fight*/
 package assignment4;
 
 public class Critter4 extends Critter {

@@ -10,7 +10,7 @@
  * Slip days used: 1
  * Fall 2016
  */
-/*Critter 2 never moves and always tries to fight*/
+/**Critter 2 never moves and always tries to fight*/
 package assignment4;
 
 public class Critter2 extends Critter{
