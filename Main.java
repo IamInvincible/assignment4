@@ -1,14 +1,14 @@
 package assignment4;
-/* CRITTERS Critter.java
+/* CRITTERS Main.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
- * Cejay Zhu
- * cz4723
- * 16238
- * Jason Fang
- * jhf649
- * 16238
- * Slip days used: 1
+ * <Student1 Name>
+ * <Student1 EID>
+ * <Student1 5-digit Unique No.>
+ * <Student2 Name>
+ * <Student2 EID>
+ * <Student2 5-digit Unique No.>
+ * Slip days used: <0>
  * Fall 2016
  */
 
@@ -73,7 +73,7 @@ public class Main {
         
         String inputString = "";
         while(!inputString.equals("quit")){
-        	System.out.println("critters> ");
+        	System.out.print("critters>");
         	inputString = kb.nextLine();
         	int spaceCount = 0;
         	for(int i = 0; i < inputString.length(); i++){
@@ -83,7 +83,7 @@ public class Main {
         	}
         	if(spaceCount == 0){
         		if (inputString.equals("quit")) {
-					// quit
+					Critter.clearWorld();
 				} else if (inputString.equals("show")) {
 					Critter.displayWorld();
 				} else if (inputString.equals("step")) {
@@ -93,7 +93,7 @@ public class Main {
 				}
         	}
         	else if(spaceCount == 1){
-        		int spaceIndex = inputString.indexOf(' ');
+        		int spaceIndex = inputString.indexOf(" ");
         		String input1 = inputString.substring(0, spaceIndex);
         		String input2 = inputString.substring(spaceIndex+1);
         		if(input1.equals("step")){
@@ -118,7 +118,7 @@ public class Main {
         		}
         		else if(input1.equals("make")){
         			try{
-        				Critter.makeCritter(myPackage+"."+input2);
+        				Critter.makeCritter(input2);
         			}
         			catch(InvalidCritterException e){
         				System.out.println("error processing: " +inputString);
@@ -126,7 +126,7 @@ public class Main {
         		}
         		else if(input1.equals("stats")){
         			try{
-        				java.util.List<Critter> critterList = Critter.getInstances(myPackage+"."+input2);
+        				java.util.List<Critter> critterList = Critter.getInstances(input2);
         				Class<?> c = Class.forName(myPackage+"."+input2);
         				Method method = c.getMethod("runStats", new Class[]{java.util.List.class});
         				method.invoke(c, critterList);
@@ -145,7 +145,7 @@ public class Main {
         			}
         		}
         		else{
-        			System.out.println("invalid command: " +inputString);
+        			System.out.println("error processing: " +inputString);
         		}
         	}
         	else if(spaceCount == 2){
@@ -161,7 +161,7 @@ public class Main {
 							System.out.println("error processing: " + inputString);
 						} else {
 							for (int i = 0; i < loopInt; i++) {
-								Critter.makeCritter(myPackage + "." + class_name);
+								Critter.makeCritter(class_name);
 							}
 						}
 					} catch (InvalidCritterException e) {
@@ -170,23 +170,12 @@ public class Main {
 						System.out.println("error processing: " + inputString);
 					}
 				} else {
-					if(firstWord.equals("quit") || firstWord.equals("show") || firstWord.equals("step") || firstWord.equals("seed") || firstWord.equals("stats")){
-	        			System.out.println("error processing: " +inputString);
-	        		}
-	        		else{
-	        			System.out.println("invalid command: " +inputString);
-	        		}
+					System.out.println("error processing: " + inputString);
 				}
         	}
         	else{
-        		int spaceIndex = inputString.indexOf(' ');
-        		String input1 = inputString.substring(0, spaceIndex);
-        		if(input1.equals("quit") || input1.equals("show") || input1.equals("step") || input1.equals("seed") || input1.equals("make") || input1.equals("stats")){
-        			System.out.println("error processing: " +inputString);
-        		}
-        		else{
-        			System.out.println("invalid command: " +inputString);
-        		}
+        		//System.out.println("invalid command: " +inputString);
+				System.out.println("error processing: " + inputString);
         	}
         }
         

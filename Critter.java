@@ -2,11 +2,11 @@ package assignment4;
 /* CRITTERS Critter.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
- * Cejay Zhu
- * cz4723
- * 16238
  * Jason Fang
  * jhf649
+ * 16238
+ * Cejay Zhu
+ * cz4723
  * 16238
  * Slip days used: 1
  * Fall 2016
@@ -262,7 +262,8 @@ public abstract class Critter {
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 
 		try {
-			Class<?> c = Class.forName(critter_class_name);
+			String qualified_critter_class_name = myPackage+"."+critter_class_name;
+			Class<?> c = Class.forName(qualified_critter_class_name);
 			boolean validCritter = Critter.class.isAssignableFrom(c);
 			if (!validCritter) {
 				throw new InvalidCritterException(critter_class_name);
@@ -299,7 +300,8 @@ public abstract class Critter {
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
 		try {
-			Class<?> c = Class.forName(critter_class_name);
+			String qualified_critter_class_name = myPackage+"."+critter_class_name;
+			Class<?> c = Class.forName(qualified_critter_class_name);
 			boolean validCritter = Critter.class.isAssignableFrom(c);
 			if (!validCritter) {
 				throw new InvalidCritterException(critter_class_name);
@@ -582,7 +584,7 @@ public abstract class Critter {
 
 		for (int i = 0; i < Params.refresh_algae_count; i++) {
 			try {
-				makeCritter(myPackage + ".Algae");
+				makeCritter("Algae");
 			} catch (InvalidCritterException e) {
 				System.out.println("Invalid Critter Exception: Algae not created");
 			}
